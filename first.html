@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    body{
+        margin: 0
+    }
+    canvas{
+        width:100%;
+        height: 100%;
+    }
+    </style>
+</head>
+<body>
+     
+</body>
+</html>
+<script src="./js/three.js"></script>
+<script>
+    // 创建场景
+const scene = new THREE.Scene()
+  //  创建视野
+const camera = new THREE.PerspectiveCamera(
+    75,
+    window.innerWidth/window.innerHeight,
+    0.1,
+    1000
+)
+// 初始化渲染器 并设置大小
+const render = new THREE.WebGLRenderer()
+render.setSize(window.innerWidth/2,window.innerHeight/2)
+// 将渲染器添加到文档中 呈现为canvas
+document.body.appendChild(render.domElement)
+
+// 添加立方体
+const geometry = new THREE.BoxGeometry(1,1,1)
+const material = new THREE.MeshBasicMaterial({color:0x00ff00})
+const cube = new THREE.Mesh(geometry,material)
+// 将立方体放入到创建好的场景中
+scene.add(cube)
+
+camera.position.z = 5
+// 渲染场景
+function animate(){
+    cube.rotation.x += 0.01
+    cube.rotation.y += 0.03
+    requestAnimationFrame( animate)
+    render.render(scene,camera)
+}
+animate()
+</script>
